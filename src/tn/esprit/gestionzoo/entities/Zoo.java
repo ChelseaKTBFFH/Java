@@ -1,51 +1,44 @@
 package tn.esprit.gestionzoo.entities;
-
-//instruction 5 + 6
 public class Zoo {
-    private Animal[] animals;
+    Animal[] animals;
     private String name;
     private String city;
-    //instruction 14
-    static final int nbrCages=25;
+    public static final int nbrCages=25;
     private int nbrAnimals;
+    Aquatic[] aquaticAnimals;
+    private int nbAquatic;
 
     public Zoo(String name, String city, int nbrCages) {
         this.animals = new Animal[nbrCages]; //always in constructor
         this.name = name;
         this.city = city;
         this.nbrAnimals = 0;
-    }
-    public void setAnimals(Animal[] animals) {
-        this.animals = animals;
-    }
-
-    public Animal[] getAnimals() {
-        return animals;
+        //instruction 25
+        this.aquaticAnimals = new Aquatic[10];
+        this.nbAquatic =0;
     }
 
+    public String getName(){
+        return name;
+    }
+    public String getCity(){
+        return city;
+    }
+    public int getNbrAnimals(){
+        return nbrAnimals;
+    }
 
-    public void setName(String name) {
-        if (name.trim().isEmpty()) {
-            System.out.println("Name is empty");
+    public void setName(String name){
+        if(name.trim().isEmpty()) {
+            System.out.println("nom ne doit pas une chaine vide");
         }
-        else  {
-            this.name = name;
-        }
+        this.name = name;
     }
-    String getName() {
-        return this.name;
-    }
-    public void setCity(String city) {
+    public void setCity(String city){
         this.city = city;
     }
-    String getCity() {
-        return this.city;
-    }
-    public void setNbrAnimals(int nbrAnimals) {
+    public void setNbrAnimals(int nbrAnimals){
         this.nbrAnimals = nbrAnimals;
-    }
-    public int getNbrAnimals() {
-        return this.nbrAnimals;
     }
 
     public void displayZoo(){
@@ -62,17 +55,16 @@ public class Zoo {
 
     //instruction 10
     public boolean addAnimal(Animal animal){
-        //instruction 12
-        if(this.searchAnimal(animal)!=-1 || isZoofull()){
-            return false;
-        }
+            //instruction 12+17
+            if(this.searchAnimal(animal)!=-1 || isZoofull()){
+                return false;
+            }
 
-        this.animals[nbrAnimals] = animal;
-        nbrAnimals++;
-        return true;
+            this.animals[nbrAnimals] = animal;
+            nbrAnimals++;
+            return true;
     }
 
-    //instruction 11
     public void displayAnimals(){
         for (int i=0;i<animals.length; i++) {
             if (animals[i] != null) {
@@ -90,7 +82,6 @@ public class Zoo {
         return -1;
     }
 
-    //instruction 13
     public boolean removeAnimal(Animal animal) {
         int i = this.searchAnimal(animal);
         if (i != -1) {
@@ -104,13 +95,11 @@ public class Zoo {
         return false;
     }
 
-    //instruction 15
     public boolean isZoofull(){
 
         return nbrAnimals>=nbrCages;
     }
 
-    //instruction 16
     public Zoo comparerZoo(Zoo z1 , Zoo z2){
 
         if(z1.nbrAnimals>z2.nbrAnimals){
@@ -125,5 +114,34 @@ public class Zoo {
         }
     }
 
+    public void addAquaticAnimal(Aquatic aquatic){
+
+        if(nbAquatic<aquaticAnimals.length){
+            aquaticAnimals[nbAquatic] = aquatic;
+            nbAquatic++;
+            System.out.println("ajout avec success");
+        }else{
+            System.out.println("plein");
+        }
+    }
+
+    public void displayNumberOfAquaticsByType(){
+
+        int dof=0;
+        int pen=0;
+
+        for(int i=0;i<aquaticAnimals.length;i++){
+            Aquatic aquatic = aquaticAnimals[i];
+            if(aquatic instanceof Dolphin){
+                dof++;
+            }else if (aquatic instanceof Penguin){
+                pen++;
+            }
+        }
+        System.out.println("Nombre des dauphins:" +dof);
+        System.out.println("Nombre des pengouins:" +pen);
+    }
+
 }
+
 

@@ -12,34 +12,35 @@ public class Animal {
         this.age = age;
         this.isMammal = isMammal;
     }
-    public void setAge(int age) {
-        if (age < 0){
-            System.out.println("Invalid age");
-        }
-        else  {
-            this.age = age;
-        }
-    }
-    int getAge(){
-        return this.age;
-    }
-    public void setMammal(boolean isMammal) {
-        this.isMammal = isMammal;
-    }
-    boolean isMammal() {
-        return this.isMammal;
-    }
+
     public String getFamily() {
         return family;
-    }
-    public void setFamily(String family) {
-        this.family = family;
     }
     public String getName() {
         return name;
     }
+    public int getAge() {
+        return age;
+    }
+    public boolean isMammal() {
+        return isMammal;
+    }
+
+    //setters
+    public void setFamily(String family) {
+        this.family = family;
+    }
     public void setName(String name) {
         this.name = name;
+    }
+    public void setAge(int age) {
+        if(age<0){
+            System.out.println("Age doit etre un nombre positif");
+        }
+        this.age = age;
+    }
+    public void setMammal(boolean mammal) {
+        isMammal = mammal;
     }
 
     @Override
@@ -47,7 +48,6 @@ public class Animal {
 
         return "Family: "+family+" name: "+name+" age: "+age+" isMammal: "+isMammal;
     }
-
 
 
 }
