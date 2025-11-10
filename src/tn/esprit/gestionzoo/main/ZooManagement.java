@@ -1,70 +1,43 @@
 package tn.esprit.gestionzoo.main;
 
-import tn.esprit.gestionzoo.entities.Animal;
-import tn.esprit.gestionzoo.entities.Zoo;
-import tn.esprit.gestionzoo.entities.Aquatic;
-import tn.esprit.gestionzoo.entities.Terrestrial;
-import tn.esprit.gestionzoo.entities.Dolphin;
-import tn.esprit.gestionzoo.entities.Penguin;
+import tn.esprit.gestionzoo.entities.*;
+import tn.esprit.gestionzoo.exceptions.*;
 
 public class ZooManagement {
     public static void main(String[] args) {
 
-        Animal tiger = new Animal("Leo", "Tiger", 12, true);
-        Animal giraffe = new Animal("Mira", "Giraffe", 25, true);
-        Animal goat = new Animal("Luna", "Goat", 8, true);
-        Animal duck = new Animal("Quacky", "Duck", 3, false);
-        Animal dog = new Animal("Rocky", "Dog", 6, true);
-        Animal cat = new Animal("Milo", "Cat", 5, true);
+        Animal tiger = new Animal("Felidae", "Tiger", 12, true);
+        Animal giraffe = new Animal("Giraffidae", "Giraffe", 25, true);
+        Animal goat = new Animal("Bovidae", "Goat", 8, true);
+        Animal duck = new Animal("Anatidae", "Duck", 3, false);
+        Animal dog = new Animal("Canidae", "Dog", 6, true);
+        Animal cat = new Animal("Felidae", "Cat", 5, true);
+        Animal badAgeAnimal = new Animal("Unknown", "Baby", -2, false);
 
-        Zoo myZoo = new Zoo("Wild Haven", "Ariana", 10);
-        Zoo yourZoo = new Zoo("Sunny Park", "La Marsa", 20);
+        Zoo myZoo = new Zoo("Wild Haven", "Ariana", 3);
 
-        System.out.println(tiger.toString());
+        try {
+            myZoo.addAnimal(tiger);
+            System.out.println("Nombre d'animaux : " + myZoo.getNbrAnimals());
 
-        System.out.println(myZoo.addAnimal(tiger));
-        System.out.println(myZoo.addAnimal(giraffe));
-        System.out.println(myZoo.addAnimal(goat));
-        System.out.println(myZoo.addAnimal(duck));
+            myZoo.addAnimal(giraffe);
+            System.out.println("Nombre d'animaux : " + myZoo.getNbrAnimals());
 
-        myZoo.displayAnimals();
-        System.out.println(myZoo.searchAnimal(tiger));
+            myZoo.addAnimal(goat);
+            System.out.println("Nombre d'animaux : " + myZoo.getNbrAnimals());
 
-        myZoo.removeAnimal(goat);
-        myZoo.displayAnimals();
+            // test zoo plein
+            myZoo.addAnimal(duck);
 
-        if (myZoo.isZoofull()) {
-            System.out.println("Zoo is full");
-        } else {
-            System.out.println("Zoo still has space");
+            // test âge négatif
+            myZoo.addAnimal(badAgeAnimal);
+
+        } catch (ZooFullException e) {
+            System.err.println("Erreur : " + e.getMessage());
+        } catch (InvalidAgeException e) {
+            System.err.println("Erreur d'âge : " + e.getMessage());
         }
 
-        yourZoo.addAnimal(dog);
-        yourZoo.addAnimal(giraffe);
-        yourZoo.addAnimal(goat);
-        yourZoo.addAnimal(duck);
-        yourZoo.addAnimal(cat);
-        yourZoo.displayAnimals();
-
-        Zoo bestZoo = myZoo.comparerZoo(myZoo, yourZoo);
-
-        Terrestrial turtle = new Terrestrial("Shelly", "Turtle", 40, false, 4);
-        Aquatic dolphin = new Dolphin("Splashy", "Dolphin", 15, true, "Ocean", 70);
-        Aquatic penguin = new Penguin("Pingo", "Penguin", 7, false, "Antarctica", 300);
-
-        System.out.println("New Animals added");
-        System.out.println(turtle.toString());
-        System.out.println(dolphin.toString());
-        System.out.println(penguin.toString());
-
-        penguin.swim();
-        dolphin.swim();
-
-        myZoo.addAquaticAnimal(penguin);
-        myZoo.addAquaticAnimal(dolphin);
-
-        myZoo.displayNumberOfAquaticsByType();
-
-        System.out.println(penguin.equals(dolphin));
+        myZoo.displayAnimals();
     }
 }
