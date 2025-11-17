@@ -31,13 +31,14 @@ public class SocieteArrayList implements IGestion<Employe> {
 
     @Override
     public void displayEmploye() {
-        for (Employe e : liste)
+        for (Employe e : liste) {
             System.out.println(e);
+        }
     }
 
     @Override
     public void trierEmployeParId() {
-        Collections.sort(liste); // utilise compareTo()
+        Collections.sort(liste);
     }
 
     @Override

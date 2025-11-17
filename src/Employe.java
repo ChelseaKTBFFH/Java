@@ -1,4 +1,5 @@
 public class Employe implements Comparable<Employe> {
+
     private int id;
     private String nom;
     private String prenom;
@@ -31,26 +32,28 @@ public class Employe implements Comparable<Employe> {
     public void setGrade(int grade) { this.grade = grade; }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Employe)) return false;
-        Employe e = (Employe) obj;
-        return this.id == e.id && this.nom.equalsIgnoreCase(e.nom);
-    }
-
-    @Override
     public int compareTo(Employe e) {
         return Integer.compare(this.id, e.id);
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Employe e = (Employe) obj;
+        return id == e.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
+    @Override
     public String toString() {
-        return "Employe {" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
+        return "Employe{" + "id=" + id + ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", departement='" + nomDepartement + '\'' +
-                ", grade=" + grade +
-                '}';
+                ", grade=" + grade + '}';
     }
 }
